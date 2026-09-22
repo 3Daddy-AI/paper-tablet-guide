@@ -322,7 +322,7 @@
   <div class="ch-head"><span class="ch-num">序</span><h2>なぜ「使い分け」なのか</h2><span class="en">Introduction</span></div>
   <p>2019年に始まったGIGAスクール構想により、全国の小中学校で1人1台端末の環境が整いました。2024年度からは英語を皮切りにデジタル教科書の本格導入が進み、紙とデジタルの「選択制・併用」が公式な方針となっています<a class="ref" href="#bib13">[13]</a>。</p>
   <p>一方で研究の世界では、「紙かデジタルか」という単純な二項対立はすでに乗り越えられつつあります。モバイル端末を活用した授業全体の効果を統合したメタ分析では、端末活用は平均して<b>中程度のプラスの効果</b>を示す一方<a class="ref" href="#bib19">[19]</a>、長文読解や手書きの記憶効果では<b>紙が優位</b>という頑健な知見も蓄積されています<a class="ref" href="#bib1">[1]</a><a class="ref" href="#bib2">[2]</a>。つまり、<b>効果はメディアそのものではなく「活動とメディアの組み合わせ」で決まる</b>のです。</p>
-  <p>さらに、OECDによるPISA 2022の分析では、学校でのデジタル機器の使用と学力の間に<b>「逆U字」の関係</b>が見つかっています。適度に使う生徒の成績が最も高く、<b>使いすぎの層は使わない層よりも成績が低い</b>のです<a class="ref" href="#bib24">[24]</a>。「使うか使わないか」ではなく「量と質のコントロール」こそが問われています。</p>
+  <p>さらに、OECDによる最新の国際調査PISA 2025（15歳対象）では、学校での<b>学習目的</b>のデジタル機器の使用と学力の間に<b>「逆U字」の関係</b>が見つかっています。まったく使わない生徒や長時間使う生徒よりも、<b>適度に使う生徒の成績が高い</b>のです。一方、学校での<b>遊び目的</b>の使用は<b>1日1時間を超えると、長いほど成績が低い</b>傾向も報告されました<a class="ref" href="#bib24">[24]</a>。「使うか使わないか」ではなく「量と質のコントロール」こそが問われています。</p>
   <div class="evidence">
     <div class="ev-label">EVIDENCE</div>
     文部科学省の実証研究でも「紙とデジタルにはそれぞれ良さがあり、発達段階や学習場面に応じた使い分けが必要」と結論づけられています<a class="ref" href="#bib13">[13]</a>。本ガイドの立場も同じです。「どちらが勝つか」ではなく「どの場面でどちらが活きるか」を考えましょう。
@@ -601,7 +601,7 @@
     <li id="bib21"><b>Jansen, B. R. J., et al. (2025).</b> Tracing students' practice behavior in an adaptive math learning program: Does it mediate the math anxiety–performance link? <i>Learning and Individual Differences</i>.</li>
     <li id="bib22"><b>Berninger, V. W., Abbott, R. D., Augsburger, A., & Garcia, N. (2009).</b> Comparison of pen and keyboard transcription modes in children with and without learning disabilities. <i>Learning Disability Quarterly, 32</i>(3), 123–141. 小2・4・6年生でペンによる作文が量・速度・文の完全性で優位。</li>
     <li id="bib23"><b>文部科学省 (2015, 2022).</b> 情報活用能力調査. キーボード入力速度は小5平均で5.9字/分（2015年度）→15.8字/分（2021年度）。令和8年度に40字/分を目標とする指標を検討.</li>
-    <li id="bib24"><b>OECD (2023).</b> PISA 2022 Results / Managing Screen Time (2024). 学校でのデジタル機器使用は「適度」が最も高成績と関連し、過度の使用層は20〜30点低い「逆U字」関係を報告.</li>
+    <li id="bib24"><b>OECD (2026).</b> <i>PISA 2025 Results (Volume I): Future-Ready Students</i>. OECD Publishing, Paris. 学校での学習目的のデジタル機器使用は「適度」が非使用・長時間使用より高成績と関連する「逆U字」関係を報告。学校での遊び目的の使用は1日1時間を超えると成績が低い傾向。授業中に端末で気が散る生徒がいるとの回答はOECD平均28%（日本は10%未満）.</li>
   </ol>
 </section>
 
@@ -735,7 +735,7 @@ const QUESTIONS = [
   id:'time', no:'Q6', title:'その時間帯までの端末使用は？', desc:'1日のスクリーンタイム全体で考えます。',
   opts:[
    {label:'この日はすでに端末をよく使っている', p:2, t:0,
-    reasons:[{side:'kami', text:'PISAの分析では端末使用は「適度」が最も高成績と関連し、使いすぎは逆効果（逆U字）。1日のバランスを取るため、この時間は紙中心が良いでしょう。', refs:[18,24]}]},
+    reasons:[{side:'kami', text:'PISA 2025では学習目的の端末使用は「適度」が最も高成績と関連し、使わなすぎ・使いすぎはどちらも低め（逆U字）。1日のバランスを取るため、この時間は紙中心が良いでしょう。', refs:[18,24]}]},
    {label:'まだあまり使っていない', p:0, t:0, reasons:[]},
    {label:'放課後・家庭学習の時間である', p:1, t:0,
     reasons:[],
