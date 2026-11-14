@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>紙とタブレットの使い分けガイド — 小学校の学びをデザインする</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--fs-h2:1.5rem;}
+  @media(min-width:900px){:root{--fs-h2:2rem;}}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{font-family:var(--body-font);color:var(--body);background:var(--bg);line-height:1.8;font-size:16px;-webkit-font-smoothing:antialiased;}
+  b{color:var(--ink);font-weight:700;}
+  a{color:inherit;}
+
+  header{background:var(--header-bg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;}
+  .header-inner{max-width:1120px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  .site-title{font-family:var(--head-font);font-weight:var(--head-weight);font-size:1rem;letter-spacing:var(--head-ls);color:var(--ink);line-height:1.4;}
+  .site-title .sub{display:block;font-size:.75rem;color:var(--muted);letter-spacing:.14em;font-family:var(--mono-font);font-weight:500;}
+  nav.mode{margin-left:auto;display:flex;gap:4px;background:var(--seg-bg);padding:4px;border-radius:var(--r-btn);}
+  .mode button{font-family:var(--body-font);font-size:.875rem;font-weight:700;min-height:44px;padding:6px 20px;border:none;background:transparent;color:var(--muted-strong);cursor:pointer;border-radius:var(--r-btn);transition:background .2s,color .2s;}
+  .mode button:hover{color:var(--ink);}
+  .mode button.active{background:var(--seg-on-bg);color:var(--seg-on-fg);box-shadow:var(--seg-shadow);}
+  @media(max-width:720px){.site-title .sub{display:none;}.header-inner{padding:10px 16px;}.mode button{padding:6px 14px;}}
+
+  .hero{max-width:1120px;margin:0 auto;padding:88px 24px 56px;display:grid;grid-template-columns:1fr;gap:20px;}
+  .hero h1{font-family:var(--head-font);font-size:clamp(2rem,5.2vw,3.6rem);line-height:1.4;font-weight:var(--head-weight);letter-spacing:var(--head-ls);color:var(--ink);text-wrap:balance;}
+  .hero h1 .kami{color:var(--kami-text);}
+  .hero h1 .tab{color:var(--tab-text);}
+  .hero h1 .kami,.hero h1 .tab,.verdict h3 .kami,.verdict h3 .tab{white-space:nowrap;}
+  .hero p.lead{margin-top:20px;color:var(--muted-strong);max-width:42em;font-size:1rem;}
+  .hero-seal{order:-1;justify-self:start;font-family:var(--mono-font);font-size:.75rem;font-weight:700;letter-spacing:.12em;color:var(--seal-fg);background:var(--seal-bg);padding:4px 16px;border-radius:9999px;}
+  @media(max-width:720px){.hero{padding:48px 16px 32px;}}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px 96px;}
+  @media(max-width:720px){.wrap{padding:0 16px 64px;}}
+  .book-grid{display:grid;grid-template-columns:232px minmax(0,1fr);gap:56px;align-items:start;}
+  @media(max-width:900px){.book-grid{grid-template-columns:minmax(0,1fr);gap:32px;}}
+
+  .toc{position:sticky;top:88px;font-size:.875rem;}
+  .toc .toc-label{font-family:var(--mono-font);letter-spacing:.16em;font-size:.75rem;font-weight:700;color:var(--muted);margin-bottom:12px;}
+  .toc a{display:flex;align-items:center;min-height:44px;color:var(--muted-strong);text-decoration:none;padding:8px 12px;line-height:1.5;border-radius:var(--r-sm);transition:background .2s,color .2s;}
+  .toc a:hover{color:var(--ink);background:var(--surface2);}
+  .toc a.now{color:var(--ink);font-weight:700;background:var(--surface2);}
+  @media(max-width:900px){.toc{position:static;display:flex;flex-wrap:wrap;gap:8px;padding-bottom:24px;border-bottom:1px solid var(--line);}.toc .toc-label{flex-basis:100%;margin-bottom:4px;}.toc a{background:var(--surface2);padding:8px 12px;font-size:.75rem;}}
+
+  section.chapter{margin-bottom:96px;scroll-margin-top:96px;}
+  .ch-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;padding-bottom:16px;margin-bottom:28px;border-bottom:1px solid var(--line);}
+  .ch-num{font-family:var(--head-font);font-size:1.5rem;color:var(--accent);font-weight:var(--head-weight);line-height:1;}
+  .ch-head h2{font-family:var(--head-font);font-size:var(--fs-h2);letter-spacing:var(--head-ls);font-weight:var(--head-weight);color:var(--ink);line-height:1.4;}
+  .ch-head .en{margin-left:auto;font-family:var(--mono-font);font-size:.75rem;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;}
+  section.chapter h3{font-family:var(--head-font);font-weight:var(--head-weight);font-size:1.25rem;margin:44px 0 12px;letter-spacing:var(--head-ls);color:var(--ink);line-height:1.5;}
+  section.chapter p{margin-bottom:16px;max-width:44em;}
+  section.chapter ul{margin:0 0 16px 1.4em;max-width:42em;}
+  section.chapter li{margin-bottom:8px;}
+
+  .ref{font-size:.75rem;vertical-align:super;color:var(--link);text-decoration:none;font-weight:700;margin-left:1px;line-height:0;}
+  .ref:hover{text-decoration:underline;}
+
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0 8px;}
+  @media(max-width:720px){.duo{grid-template-columns:1fr;}}
+  .card{border-radius:var(--r-card);background:var(--surface);border:var(--card-border);padding:24px;box-shadow:var(--card-shadow);}
+  .card.kami{background:var(--card-kami-bg);}
+  .card.tab{background:var(--card-tab-bg);}
+  .card .badge{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.08em;padding:4px 16px;border-radius:9999px;margin-bottom:12px;}
+  .card.kami .badge{background:var(--kami);color:var(--on-kami);}
+  .card.tab .badge{background:var(--tab);color:var(--on-tab);}
+  .card h4{font-family:var(--head-font);font-weight:var(--head-weight);font-size:1.25rem;margin-bottom:8px;color:var(--ink);letter-spacing:var(--head-ls);}
+  .card ul{margin-left:1.3em;font-size:.875rem;}
+  .card li{margin-bottom:8px;}
+  .card .minus li{color:var(--muted-strong);}
+  .plusminus{font-family:var(--mono-font);font-size:.75rem;font-weight:700;letter-spacing:.1em;color:var(--muted-strong);margin:16px 0 6px;}
+
+  .evidence{background:var(--ev-bg);border-radius:var(--r-card);padding:20px 24px;margin:20px 0;font-size:1rem;max-width:46em;border:var(--ev-border);}
+  .evidence .ev-label{font-family:var(--mono-font);font-size:.75rem;letter-spacing:.16em;color:var(--ev-label);font-weight:700;margin-bottom:6px;}
+  .evidence.guide{background:var(--guide-bg);}
+  .evidence.guide .ev-label{color:var(--guide-label);}
+  .evidence a{color:var(--link);}
+
+  .principles{counter-reset:pr;list-style:none;margin:24px 0!important;max-width:46em;}
+  .principles li{counter-increment:pr;position:relative;padding:16px 24px 16px 72px;margin-bottom:12px;background:var(--surface);border:var(--card-border);border-radius:var(--r-card);box-shadow:var(--card-shadow);}
+  .principles li::before{content:counter(pr,decimal-leading-zero);position:absolute;left:24px;top:16px;font-family:var(--mono-font);font-size:1.25rem;color:var(--accent);font-weight:700;}
+
+  .matrix-wrap{overflow-x:auto;}
+  table.matrix{width:100%;border-collapse:separate;border-spacing:0;font-size:.875rem;margin:16px 0;border:1px solid var(--line);border-radius:var(--r-card);overflow:hidden;}
+  .matrix th,.matrix td{border-bottom:1px solid var(--line);padding:12px 16px;text-align:left;vertical-align:top;}
+  .matrix tbody tr:last-child td{border-bottom:none;}
+  .matrix thead th{background:var(--th-bg);color:var(--th-fg);font-weight:700;font-size:.75rem;letter-spacing:.04em;}
+  .pick{font-weight:700;white-space:nowrap;}
+  .pick.kami{color:var(--kami-text);}
+  .pick.tab{color:var(--tab-text);}
+  .pick.both{color:var(--accent);}
+
+  ol.bib{margin-left:1.6em;font-size:.875rem;color:var(--muted-strong);}
+  ol.bib li{margin-bottom:12px;scroll-margin-top:100px;}
+  ol.bib li:target{background:var(--ev-bg);border-radius:var(--r-sm);padding:6px 10px;}
+  .pop{display:block;font-size:.75rem;color:var(--tab-text);}
+
+  #view-shindan{display:none;padding-top:56px;}
+  .sh-intro{max-width:46em;margin-bottom:40px;}
+  .sh-intro h2{font-family:var(--head-font);font-weight:var(--head-weight);font-size:var(--fs-h2);margin-bottom:12px;letter-spacing:var(--head-ls);color:var(--ink);line-height:1.4;text-wrap:balance;}
+  .sh-intro p{color:var(--muted-strong);}
+
+  .q-block{background:var(--q-bg);border:var(--q-border);border-radius:var(--r-card);padding:32px;margin-bottom:16px;box-shadow:var(--card-shadow);}
+  @media(max-width:560px){.q-block{padding:20px 16px;}}
+  .q-head{display:flex;gap:12px;align-items:baseline;margin-bottom:6px;}
+  .q-no{font-family:var(--mono-font);color:var(--accent);font-weight:700;font-size:.875rem;white-space:nowrap;}
+  .q-title{font-family:var(--head-font);font-size:1.25rem;font-weight:var(--head-weight);color:var(--ink);letter-spacing:var(--head-ls);}
+  .q-desc{font-size:.875rem;color:var(--muted-strong);margin-bottom:16px;}
+  .opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;margin-top:12px;}
+  .opt{border:1.5px solid var(--opt-line);border-radius:var(--r-opt);padding:12px 16px;min-height:48px;cursor:pointer;background:var(--opt-bg);transition:border-color .15s,background .15s,color .15s;font-size:1rem;line-height:1.6;user-select:none;font-family:inherit;color:var(--ink);text-align:left;width:100%;display:block;}
+  .opt:focus-visible,.mode button:focus-visible,.btn-main:focus-visible,.btn-sub:focus-visible{outline:3px solid var(--focus);outline-offset:2px;}
+  .opt:hover{border-color:var(--ink);}
+  .opt.sel{border-color:var(--sel-bg);background:var(--sel-bg);color:var(--sel-fg);}
+  .opt .o-note{display:block;font-size:.75rem;color:var(--muted-strong);margin-top:4px;}
+  .opt.sel .o-note{color:var(--sel-fg);opacity:.8;}
+
+  .sh-actions{display:flex;gap:12px;align-items:center;margin:32px 0 64px;flex-wrap:wrap;}
+  .btn-main{font-family:var(--body-font);font-size:1rem;font-weight:700;letter-spacing:.06em;background:var(--btn-bg);color:var(--btn-fg);border:none;min-height:52px;padding:12px 44px;border-radius:var(--r-btn);cursor:pointer;transition:background .2s,transform .2s;}
+  .btn-main:hover{background:var(--btn-hover);}
+  .btn-main:active{transform:scale(.98);}
+  .btn-sub{font-family:var(--body-font);background:transparent;border:1.5px solid var(--opt-line);color:var(--ink);min-height:48px;padding:10px 24px;border-radius:var(--r-btn);cursor:pointer;font-size:.875rem;font-weight:700;transition:border-color .2s;}
+  .btn-sub:hover{border-color:var(--ink);}
+  .sh-warn{color:var(--warn);font-size:.875rem;font-weight:700;display:none;}
+
+  #result{display:none;scroll-margin-top:96px;}
+  .verdict{border-radius:var(--r-verdict);background:var(--v-bg);color:var(--v-fg);padding:40px;margin-bottom:32px;position:relative;overflow:hidden;}
+  @media(max-width:560px){.verdict{padding:28px 20px;}}
+  .verdict .v-label{font-family:var(--mono-font);font-size:.75rem;letter-spacing:.14em;color:var(--v-muted);margin-bottom:8px;font-weight:700;}
+  .verdict h3{font-family:var(--head-font);font-weight:var(--head-weight);font-size:var(--fs-h2);line-height:1.4;margin-bottom:12px;color:var(--v-ink);letter-spacing:var(--head-ls);}
+  .verdict h3 .kami{color:var(--v-kami);}
+  .verdict h3 .tab{color:var(--v-tab);}
+  .verdict p{max-width:44em;}
+  .verdict b{color:var(--v-ink);}
+  .meter{display:flex;height:20px;border-radius:9999px;overflow:hidden;margin:24px 0 8px;max-width:560px;background:var(--meter-track);gap:2px;}
+  .meter .m-p{background:var(--v-kami-fill);transition:width .8s cubic-bezier(.2,.8,.2,1);}
+  .meter .m-t{background:var(--v-tab-fill);transition:width .8s cubic-bezier(.2,.8,.2,1);}
+  .meter-legend{display:flex;justify-content:space-between;max-width:560px;font-size:.75rem;color:var(--v-muted);}
+  .meter-title{font-size:.875rem;font-weight:700;margin-top:24px;color:var(--v-ink);}
+  .meter-title + .meter{margin-top:8px;}
+  .meter-note{font-size:.875rem;color:var(--v-muted);margin-top:12px;}
+  .verdict details{font-size:.875rem;color:var(--v-muted);margin-top:8px;max-width:44em;}
+  .verdict summary{cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+
+  .r-section{margin:40px 0;}
+  .r-section h4{font-family:var(--head-font);font-weight:var(--head-weight);font-size:1.25rem;margin-bottom:16px;color:var(--ink);letter-spacing:var(--head-ls);}
+  .reason-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:720px){.reason-grid{grid-template-columns:1fr;}}
+  .reason{border:var(--card-border);border-radius:var(--r-card);padding:20px;background:var(--surface);font-size:.875rem;box-shadow:var(--card-shadow);}
+  .reason.r-kami{background:var(--card-kami-bg);}
+  .reason.r-tab{background:var(--card-tab-bg);}
+  .reason .r-side,.tag-kami,.tag-tab,.tag-both{font-size:.75rem;font-weight:700;letter-spacing:.06em;padding:4px 12px;border-radius:9999px;white-space:nowrap;display:inline-block;}
+  .reason .r-side{margin-bottom:8px;}
+  .reason.r-kami .r-side,.tag-kami{background:var(--kami);color:var(--on-kami);}
+  .reason.r-tab .r-side,.tag-tab{background:var(--tab);color:var(--on-tab);}
+  .reason.r-both .r-side,.tag-both{background:var(--both-bg);color:var(--both-fg);}
+  .caution{background:var(--caution-bg);border-radius:var(--r-card);padding:16px 20px;margin-bottom:8px;font-size:.875rem;border:var(--ev-border);}
+  .recipe{background:var(--surface2);border-radius:var(--r-card);padding:24px;font-size:1rem;}
+  .recipe-lead{font-size:.875rem;color:var(--muted-strong);margin-bottom:16px;}
+  .recipe .step{display:flex;gap:12px;padding:10px 0;align-items:baseline;border-top:1px solid var(--line);}
+  .recipe .step b{white-space:nowrap;min-width:5.5em;}
+  @media(max-width:560px){.recipe .step{flex-wrap:wrap;gap:4px 10px;}.recipe .step span:last-child{flex-basis:100%;}.recipe .step b{min-width:0;}}
+  .recipe-notes{margin:16px 0 0 1.2em;font-size:.875rem;color:var(--muted-strong);}
+  .recipe-notes li{margin-bottom:4px;}
+
+  footer{border-top:1px solid var(--line);padding:32px 24px 56px;text-align:center;font-size:.75rem;color:var(--muted);letter-spacing:.04em;background:var(--footer-bg);}
+
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*{transition:none!important;}}
+  @media print{
+    header,.mode,.sh-actions,.toc{display:none!important;}
+    body{background:#fff;}
+    .book-grid{grid-template-columns:1fr;}
+  }
+
+  /* ===== ここから下が案ごとの型 ===== */
+  /* 型: awesome-design-md / figma。白黒の骨組み・黒い丸ボタン・等幅の小見出し・大きな色ブロック */
+  :root{
+    --bg:#ffffff;            /* canvas */
+    --surface:#f7f7f5;       /* surface-soft */
+    --surface2:#f7f7f5;
+    --ink:#000000; --body:#1c1c1c; --muted-strong:#4a4a4a; --muted:#6b6b6b;
+    --line:#e6e6e6;          /* hairline */
+    --kami:#f3c9b6;          /* block-coral */
+    --kami-text:#000000; --on-kami:#000000;
+    --tab:#c8e6cd;           /* block-mint */
+    --tab-text:#000000; --on-tab:#000000;
+    --accent:#000000;
+    --link:#000000;
+    --card-kami-bg:#f3c9b6; --card-tab-bg:#c8e6cd;
+    --card-border:none; --card-shadow:none;
+    --ev-bg:#f4ecd6;         /* block-cream */
+    --ev-border:none; --ev-label:#000000;
+    --guide-bg:#c5b0f4;      /* block-lilac */
+    --guide-label:#000000;
+    --th-bg:#000000; --th-fg:#ffffff;
+    --q-bg:#ffffff; --q-border:1px solid #e6e6e6;
+    --opt-bg:#ffffff; --opt-line:#c9c9c9; --sel-bg:#000000; --sel-fg:#ffffff;
+    --btn-bg:#000000; --btn-hover:#2b2b2b; --btn-fg:#ffffff;
+    --seg-bg:#f1f1f1; --seg-on-bg:#000000; --seg-on-fg:#ffffff; --seg-shadow:none;
+    --seal-bg:#000000; --seal-fg:#ffffff;
+    --v-bg:#1f1d3d;          /* block-navy */
+    --v-fg:#dcdbe8; --v-ink:#ffffff; --v-muted:#b4b2cc;
+    --v-kami:#000000; --v-tab:#000000; --v-kami-fill:#f3c9b6; --v-tab-fill:#c8e6cd; --meter-track:#35325e;
+    --both-bg:#dceeb1; --both-fg:#000000;
+    --caution-bg:#efd4d4;    /* block-pink */
+    --warn:#c2185b; --focus:#ff3d8b;
+    --header-bg:rgba(255,255,255,.92); --footer-bg:transparent;
+    --r-sm:6px; --r-card:24px; --r-opt:8px; --r-btn:50px; --r-verdict:32px;
+    --head-font:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+    --body-font:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+    --mono-font:"IBM Plex Mono","Zen Kaku Gothic New",monospace;
+    --head-weight:700; --head-ls:-.02em;
+  }
+  body{font-weight:500;}
+  /* 看板はライム色の大きなブロック */
+  .hero{max-width:1072px;background:#dceeb1;border-radius:32px;padding:72px 56px 64px;margin:24px auto 72px;}
+  @media(max-width:1120px){.hero{margin-left:16px;margin-right:16px;}}
+  @media(max-width:720px){.hero{padding:40px 24px;border-radius:24px;margin-bottom:40px;}}
+  .hero p.lead{color:#1c1c1c;}
+  /* 「紙」「タブレット」は色の札にする（文字色は黒のまま） */
+  .hero h1 .kami,.hero h1 .tab,.verdict h3 .kami,.verdict h3 .tab{padding:0 .18em;border-radius:.2em;white-space:nowrap;}
+  .hero h1 .kami{background:#f3c9b6;}
+  .hero h1 .tab{background:#ffffff;}
+  .verdict h3 .kami{background:#f3c9b6;}
+  .verdict h3 .tab{background:#c8e6cd;}
+  .pick.kami,.pick.tab,.pick.both{padding:1px 10px;border-radius:9999px;}
+  .pick.kami{background:#f3c9b6;}
+  .pick.tab{background:#c8e6cd;}
+  .pick.both{background:#dceeb1;}
+  .ch-head{border-bottom:2px solid #000;}
+  .ch-num{font-family:var(--mono-font);font-size:.875rem;border:1.5px solid #000;border-radius:9999px;padding:4px 12px;align-self:center;}
+  .card .badge,.reason .r-side{background:#000!important;color:#fff!important;}
+  .ref{text-decoration:underline;text-underline-offset:2px;}
+  .pop{color:#4a4a4a;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="site-title">紙とタブレットの使い分けガイド
+      <span class="sub">PAPER × TABLET — EVIDENCE-BASED GUIDE FOR ELEMENTARY EDUCATION</span>
+    </div>
+    <nav class="mode">
+      <button id="btn-book" class="active" onclick="switchView('book')">教科書</button>
+      <button id="btn-shindan" onclick="switchView('shindan')">診断テスト</button>
+    </nav>
+  </div>
+</header>
+
+<div class="hero" id="hero">
+  <div>
+    <h1><span class="kami">紙</span>で学ぶか、<span class="tab">タブレット</span>で学ぶか。<br>答えは「目的」が決める。</h1>
+    <p class="lead">GIGAスクール構想で1人1台端末が実現した今、問われているのは「どちらが優れているか」ではなく「いつ・何のために・どう使い分けるか」。本ガイドは国内外の研究論文をもとに、小学校の授業でのメディア選択を支援します。</p>
+  </div>
+  <div class="hero-seal">研究知見にもとづく</div>
+</div>
+
+<div class="wrap">
+
+<!-- ================= 教科書 ================= -->
+<div id="view-book">
+<div class="book-grid">
+
+<aside class="toc" id="toc">
+  <div class="toc-label">目次</div>
+  <a href="#ch0">序章　なぜ「使い分け」なのか</a>
+  <a href="#ch1">第1章　読むこと — 学習効果</a>
+  <a href="#ch2">第2章　書くこと — 学習効果</a>
+  <a href="#ch3">第3章　タブレットが強い場面</a>
+  <a href="#ch4">第4章　認知的側面</a>
+  <a href="#ch5">第5章　心理的側面</a>
+  <a href="#ch6">第6章　健康・身体的側面</a>
+  <a href="#ch7">第7章　特別支援と個別最適化</a>
+  <a href="#ch8">第8章　使い分けの原則</a>
+  <a href="#ch9">参考文献</a>
+</aside>
+
+<main>
+
+<!-- 序章 -->
+<section class="chapter" id="ch0">
+  <div class="ch-head"><span class="ch-num">序</span><h2>なぜ「使い分け」なのか</h2><span class="en">Introduction</span></div>
+  <p>2019年に始まったGIGAスクール構想により、全国の小中学校で1人1台端末の環境が整いました。2024年度からは英語を皮切りにデジタル教科書の本格導入が進み、紙とデジタルの「選択制・併用」が公式な方針となっています<a class="ref" href="#bib13">[13]</a>。</p>
+  <p>一方で研究の世界では、「紙かデジタルか」という単純な二項対立はすでに乗り越えられつつあります。モバイル端末を活用した授業全体の効果を統合したメタ分析では、端末活用は平均して<b>中程度のプラスの効果</b>を示す一方<a class="ref" href="#bib19">[19]</a>、説明文の長文読解では<b>紙が優位</b>という頑健な知見も蓄積されています<a class="ref" href="#bib1">[1]</a><a class="ref" href="#bib2">[2]</a>。つまり、<b>効果はメディアそのものではなく「活動とメディアの組み合わせ」で決まる</b>のです。</p>
+  <p>さらに、OECDによる最新の国際調査PISA 2025（15歳対象）では、学校での<b>学習目的</b>のデジタル機器の使用と学力の間に<b>「逆U字」の関係</b>が見つかっています。まったく使わない生徒や長時間使う生徒よりも、<b>適度に使う生徒の科学の成績が高い</b>のです。一方、学校での<b>遊び目的</b>の使用は<b>1日1時間を超えると、長いほど成績が低い</b>傾向も報告されました。どちらも「関連」であって、端末の使い方が成績を決めたとまでは言えません<a class="ref" href="#bib24">[24]</a>。「使うか使わないか」ではなく「量と質のコントロール」こそが問われています。</p>
+  <div class="evidence">
+    <div class="ev-label">EVIDENCE</div>
+    文部科学省の実証研究でも「紙とデジタルにはそれぞれ良さがあり、発達段階や学習場面に応じた使い分けが必要」と結論づけられています<a class="ref" href="#bib13">[13]</a>。本ガイドの立場も同じです。「どちらが勝つか」ではなく「どの場面でどちらが活きるか」を考えましょう。
+  </div>
+  <div class="evidence guide">
+    <div class="ev-label">このガイドの読み方</div>
+    本ガイドが引く研究には、海外で行われたものや、大学生など大人を対象にしたものが多く含まれます。小学生の教科学習にそのまま当てはまるとは限りません。<a href="#ch9">参考文献</a>には、確認できた範囲で研究の「対象」を添えました。診断テストも研究知見を参考にした目安です。学級の子どもを一番よく知っている先生の判断の材料として使ってください。
+  </div>
+</section>
+
+<!-- 第1章 -->
+<section class="chapter" id="ch1">
+  <div class="ch-head"><span class="ch-num">一</span><h2>読むこと — 学習効果のエビデンス</h2><span class="en">Reading</span></div>
+
+  <h3>長い説明文の読解は、紙が優位</h3>
+  <p>54件の研究・17万人超のデータを統合したDelgadoら（2018）のメタ分析は、<b>説明文（教科書的な文章）の読解成績は紙のほうが一貫して高い</b>ことを示しました。しかも、この「画面の劣位（screen inferiority）」は年々<b>拡大</b>しています。デジタルネイティブ世代ほど画面での読みが浅くなっている可能性があるのです<a class="ref" href="#bib1">[1]</a>。</p>
+  <p>Clinton（2019）の別のメタ分析も同じ結論に達しました。重要なのは、この効果が<b>大人でも子どもでも同様に見られる</b>ことです<a class="ref" href="#bib2">[2]</a>。</p>
+
+  <h3>物語文なら差は小さい</h3>
+  <p>一方、物語文（ナラティブ）では紙と画面の差はほとんど見られません<a class="ref" href="#bib1">[1]</a><a class="ref" href="#bib2">[2]</a>。読み聞かせや読書の楽しみという点では、電子書籍も十分に機能します。</p>
+
+  <h3>子ども向け絵本研究からの示唆</h3>
+  <p>Furenesら（2021）は、子ども（1〜8歳）を対象とした紙の絵本とデジタル絵本の比較研究39件をメタ分析しました。結果は繊細です<a class="ref" href="#bib3">[3]</a>。</p>
+  <ul>
+    <li>紙とほぼ同じ内容のデジタル絵本なら、<b>紙のほうが理解が良い</b></li>
+    <li>ただし、物語の内容と結びついた工夫（内容と連動した動きなど）があるデジタル絵本は<b>紙を上回ることもある</b></li>
+    <li>辞書機能は<b>語彙の学習には役立つ</b>が、物語の理解には効果がないか、かえって妨げになる</li>
+    <li>ゲームなど<b>内容と無関係な仕掛けは理解を妨げる</b></li>
+    <li><b>大人の関わり（対話的読み聞かせ）はデジタルの工夫より効果的</b></li>
+  </ul>
+
+  <h3>スクロールと時間制約に注意</h3>
+  <p>画面の劣位が特に大きくなるのは、<b>時間制限があるとき</b>と<b>スクロールが必要な長文のとき</b>です<a class="ref" href="#bib1">[1]</a><a class="ref" href="#bib14">[14]</a>。時間プレッシャー下では画面上の読みで注意が散漫になりやすいことが実験で確認されています<a class="ref" href="#bib14">[14]</a>。</p>
+
+  <div class="duo">
+    <div class="card kami">
+      <span class="badge">紙</span>
+      <h4>読むことにおける紙</h4>
+      <div class="plusminus">＋ メリット</div>
+      <ul>
+        <li>説明文の読解成績が高い<a class="ref" href="#bib1">[1]</a><a class="ref" href="#bib2">[2]</a></li>
+        <li>「どのあたりに書いてあったか」という位置の記憶（一覧性）が働く<a class="ref" href="#bib16">[16]</a></li>
+        <li>理解度の自己評価が正確（過信しにくい）<a class="ref" href="#bib4">[4]</a></li>
+      </ul>
+      <div class="plusminus">− デメリット</div>
+      <ul class="minus">
+        <li>文字の拡大・読み上げなどの支援ができない</li>
+        <li>資料の差し替え・配布に時間がかかる</li>
+      </ul>
+    </div>
+    <div class="card tab">
+      <span class="badge">タブレット</span>
+      <h4>読むことにおけるタブレット</h4>
+      <div class="plusminus">＋ メリット</div>
+      <ul>
+        <li>物語文なら理解の差はほぼない<a class="ref" href="#bib2">[2]</a></li>
+        <li>辞書・読み上げ・拡大など読みの支援機能<a class="ref" href="#bib20">[20]</a></li>
+        <li>大量の資料にすぐアクセスできる</li>
+      </ul>
+      <div class="plusminus">− デメリット</div>
+      <ul class="minus">
+        <li>説明文・長文では理解が浅くなりやすい<a class="ref" href="#bib1">[1]</a></li>
+        <li>「わかったつもり」の過信が生じやすい<a class="ref" href="#bib4">[4]</a></li>
+        <li>スクロールが理解の妨げになる<a class="ref" href="#bib14">[14]</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 第2章 -->
+<section class="chapter" id="ch2">
+  <div class="ch-head"><span class="ch-num">二</span><h2>書くこと — 学習効果のエビデンス</h2><span class="en">Writing</span></div>
+
+  <h3>手書きは脳を広く働かせる</h3>
+  <p>文字を学ぶ時期の子どもにとって、<b>手で書くこと</b>には特別な意味があります。読み書き習得前の幼児を対象にしたfMRI研究では、手書きで文字を練習した子どもだけに、読みに関わる脳領域（いわゆる「読字ネットワーク」）の活性化が見られました。タイピングやなぞり書きでは見られません<a class="ref" href="#bib6">[6]</a>。</p>
+  <p>大学生を対象にした脳波（EEG）研究でも、手書き時にはタイピング時よりも<b>はるかに広範な脳領域の結合</b>が生じることが確認されています<a class="ref" href="#bib7">[7]</a>。この実験の「手書き」は、<b>タッチ画面にデジタルペンで書く</b>条件でした。つまり、紙かどうかではなく「手で書くこと」そのものの働きを示した研究です。</p>
+
+  <h3>「紙か画面か」と「手書きかキーボードか」は別の問い</h3>
+  <p>この章の研究は、2つの違いを比べています。ひとつは<b>書き方</b>（手で書くか、キーボードで打つか）、もうひとつは<b>書く場所</b>（紙か、画面か）です。手で書くことの働き<a class="ref" href="#bib6">[6]</a><a class="ref" href="#bib7">[7]</a>は、タッチペンで画面に書く場合にも当てはまる可能性があります。一方、紙そのものの良さを調べた研究<a class="ref" href="#bib8">[8]</a><a class="ref" href="#bib9">[9]</a>はまだ数が少なく、対象も限られています。授業では「紙に手書き」「端末にペンで手書き」「キーボード」「音声入力」の4つを選択肢として考えると整理しやすくなります。</p>
+
+  <h3>紙に書くと思い出しやすい？ — 大学生を対象にした実験</h3>
+  <p>東京大学の梅島ら（2021）は、18〜29歳の大学生48人に、予定を「紙の手帳」「タブレット（ペン入力）」「スマートフォン」のいずれかで記録してもらい、1時間後に思い出してもらう実験を行いました。紙の手帳を使った群は<b>記入時間が短く</b>、後で予定を思い出す課題では、<b>比較的易しい設問で好成績</b>でした。課題全体の成績は3つの群でほぼ同じです。思い出している間の海馬や言語に関わる領域の活動は紙の群で高く、紙の持つ物理的な手がかり（どこに書いたか）が記憶を助けたと解釈されています<a class="ref" href="#bib8">[8]</a>。</p>
+  <p>これは<b>大人が予定を覚える課題</b>の結果です。小学生が漢字や社会科の用語を覚える場面で同じことが起きるかどうかは、この研究からはわかりません。</p>
+  <p>コクヨと立命館大学の共同研究（2024）では、大学生がメモを取って暗記する実験で、<b>紙のノートを使った場合はタブレットよりテスト得点が約2割高かった</b>と発表されています（暗記の直後と、2.5か月後の復習の後の両方）<a class="ref" href="#bib9">[9]</a>。企業の発表資料であり、こちらも対象は大学生です。</p>
+
+  <h3>ノートテイキングの質</h3>
+  <p>大学生対象ですが有名なMuellerとOppenheimer（2014）の研究では、キーボードでノートを取ると「聞いたままの逐語記録」になりやすく、手書きは要約・言い換えを伴うため<b>概念的な理解で手書きが優位</b>でした<a class="ref" href="#bib5">[5]</a>。「書くスピードが遅い」ことが、かえって頭の中での処理を促すと説明されています。ただし、同じ実験をやり直した追試では、手書きの優位は確認されませんでした<a class="ref" href="#bib15">[15]</a>。「手書きなら必ず理解が深まる」とまでは言えません。</p>
+
+  <h3>作文 — 低学年ほど手書きが有利、そして「入力スキルの壁」</h3>
+  <p>Berningerら（ワシントン大学）の研究では、小学2・4・6年生のいずれでも、キーボードよりも<b>ペンで書いたほうが作文が長く、書く速度も速い</b>という結果が出ました（4・6年生では完全な文も多い）<a class="ref" href="#bib22">[22]</a>。英語圏の研究である点には注意が必要です。書字・入力の技能（transcription skill）が自動化されていないうちは、その負担が内容を考える力を圧迫するためです。</p>
+  <p>日本ではさらに<b>ローマ字入力の壁</b>があります。文部科学省の情報活用能力調査では、小学5年生のキーボード入力速度は平均<b>1分間に15.8文字</b>（2021年度調査。2013年度調査では5.9文字）<a class="ref" href="#bib23">[23]</a>。手で書くより遅い子も多く、<b>入力が遅い段階でデジタル作文を課すと「書く量」が大きく減る</b>恐れがあります。タイピング指導とセットで段階的に移行しましょう。</p>
+
+  <div class="duo">
+    <div class="card kami">
+      <span class="badge">紙</span>
+      <h4>書くことにおける紙</h4>
+      <div class="plusminus">＋ メリット</div>
+      <ul>
+        <li>文字学習期の読み書きの脳基盤を育てる<a class="ref" href="#bib6">[6]</a><a class="ref" href="#bib7">[7]</a></li>
+        <li>書いた内容を思い出しやすいという報告がある（大学生対象の実験など）<a class="ref" href="#bib8">[8]</a><a class="ref" href="#bib9">[9]</a></li>
+        <li>要約・言い換えを促しやすい（追試では結果が分かれる）<a class="ref" href="#bib5">[5]</a><a class="ref" href="#bib15">[15]</a></li>
+        <li>図・矢印・囲みなど自由なレイアウトで思考を整理できる</li>
+      </ul>
+      <div class="plusminus">− デメリット</div>
+      <ul class="minus">
+        <li>書き直し・編集に手間がかかる</li>
+        <li>共有・保存・蓄積がしにくい</li>
+      </ul>
+    </div>
+    <div class="card tab">
+      <span class="badge">タブレット</span>
+      <h4>書くことにおけるタブレット</h4>
+      <div class="plusminus">＋ メリット</div>
+      <ul>
+        <li>推敲・書き直しが容易で、作文の修正意欲を下げない</li>
+        <li>成果物の保存・蓄積・共有が簡単</li>
+        <li>書くことが苦手な子の表現手段になる<a class="ref" href="#bib20">[20]</a></li>
+      </ul>
+      <div class="plusminus">− デメリット</div>
+      <ul class="minus">
+        <li>紙より思い出しにくいという報告がある（大学生対象の実験など）<a class="ref" href="#bib8">[8]</a><a class="ref" href="#bib9">[9]</a></li>
+        <li>タブレットへの筆記は認知的負荷が高いという報告も<a class="ref" href="#bib9">[9]</a></li>
+        <li>キーボードでは聞いたままの記録になりやすい<a class="ref" href="#bib5">[5]</a></li>
+        <li>入力スキル習得前は書く量・質がかえって低下する<a class="ref" href="#bib22">[22]</a><a class="ref" href="#bib23">[23]</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 第3章 -->
+<section class="chapter" id="ch3">
+  <div class="ch-head"><span class="ch-num">三</span><h2>タブレットが強い場面</h2><span class="en">Where Tablets Shine</span></div>
+
+  <h3>即時フィードバック付きの反復練習</h3>
+  <p>タブレット学習の強みのひとつは<b>即時フィードバック</b>です。中学1年生の図形学習で「紙と鉛筆」「ペン入力のタブレット（フィードバックなし）」「ペン入力のタブレット（その場でフィードバックあり）」を比べた実験では、<b>タブレットに替えただけでは学習成果は変わらず</b>、その場でフィードバックが返る条件だけが、学習と応用の両方で高い成績を示しました<a class="ref" href="#bib11">[11]</a>。効いているのは端末そのものではなく、フィードバックです。</p>
+
+  <h3>個別最適化 — 一人ひとりに合わせた出題</h3>
+  <p>アダプティブ（適応型）の算数アプリを授業に取り入れたアメリカの研究では、使った学級の子ども（幼稚園年長〜小学校低学年）は、使わなかった学級より<b>算数の力が伸びた</b>と報告されています<a class="ref" href="#bib10">[10]</a>。一人ひとりの誤答に合わせて出題を変えられるのは、紙のドリルにはない機能です。</p>
+
+  <h3>マルチメディア・記録・共有</h3>
+  <ul>
+    <li><b>動画・アニメーション</b>：実験手順、立体図形、英語の発音など、紙では伝えられない動的情報を提示できる<a class="ref" href="#bib13">[13]</a></li>
+    <li><b>カメラ・録音</b>：観察記録、体育のフォーム確認、音読の録音など「自分を客観視する」学習が可能になる</li>
+    <li><b>共同編集・即時共有</b>：全員の考えを一覧表示して比較する、協働で1つの成果物を作るなど、協働学習の幅が広がる</li>
+    <li><b>調べ学習</b>：検索して情報を集め、確かさを見きわめる経験は、端末を使う中で積める（図書資料での調べ方と合わせて指導する）</li>
+  </ul>
+
+  <div class="evidence">
+    <div class="ev-label">EVIDENCE</div>
+    110件の研究を統合したSungら（2016）のメタ分析では、モバイル端末を活用した授業は従来型授業に比べ<b>効果量0.52（中程度）</b>のプラス効果を示しました。特に効果が大きかったのは、<b>探究型の学習</b>と組み合わせた場合です（効果量0.84）<a class="ref" href="#bib19">[19]</a>。「端末を配れば伸びる」のではなく「設計次第」であることが読み取れます。
+  </div>
+</section>
+
+<!-- 第4章 -->
+<section class="chapter" id="ch4">
+  <div class="ch-head"><span class="ch-num">四</span><h2>認知的側面 — 頭の中で何が起きているか</h2><span class="en">Cognition</span></div>
+
+  <h3>浅い処理仮説（Shallowing Hypothesis）</h3>
+  <p>SNSやスマートフォンでの断片的な情報接触に慣れると、じっくり読むべき文章まで<b>浅く速く処理してしまう</b>——これが「浅い処理仮説」です<a class="ref" href="#bib17">[17]</a>。大学生への質問紙調査にもとづく仮説で、因果関係までは確かめられていません。画面＝スキマ時間の娯楽メディアという構えが、学習場面にも持ち込まれてしまうと考えられています<a class="ref" href="#bib1">[1]</a>。</p>
+
+  <h3>メタ認知の誤作動 — 「わかったつもり」問題</h3>
+  <p>AckermanとGoldsmith（2011）の実験では、画面で学習した人は紙で学習した人より<b>自分の理解度を過大評価</b>し、学習時間を自分で決められる条件では実際の成績も低くなりました<a class="ref" href="#bib4">[4]</a>。つまり画面学習では「もう十分わかった」と早めに切り上げてしまうのです。子どもの自己調整学習を考えるうえで重要な知見です。</p>
+
+  <h3>一覧性と空間的手がかり</h3>
+  <p>紙の本では「左ページの下のほうに書いてあった」という<b>空間的な記憶の手がかり</b>が使えます。スクロール表示ではこの手がかりが失われ、文章の全体像（マクロ構造）の把握が難しくなります<a class="ref" href="#bib16">[16]</a>。梅島らも、紙の手帳では「どこに書いたか」が手がかりになり、予定を思い出す助けになったと考察しています<a class="ref" href="#bib8">[8]</a>。</p>
+
+  <h3>運動と知覚の統合</h3>
+  <p>手書きの効果の背景には、文字の形をなぞる運動情報が視覚的な文字認識を支えるという<b>運動–知覚統合</b>のメカニズムがあります<a class="ref" href="#bib6">[6]</a><a class="ref" href="#bib7">[7]</a>。単なる「昔ながらの方法への郷愁」ではなく、発達期の脳にとって合理的な学習方法なのです。</p>
+</section>
+
+<!-- 第5章 -->
+<section class="chapter" id="ch5">
+  <div class="ch-head"><span class="ch-num">五</span><h2>心理的側面 — 意欲・自信・不安</h2><span class="en">Psychology</span></div>
+
+  <h3>タブレットは意欲を高める。ただし「新奇性効果」に注意</h3>
+  <p>端末導入直後は学習意欲・エンゲージメントが大きく高まります。しかしこの効果の一部は<b>新奇性効果（novelty effect）</b>——「新しいものだから楽しい」——であり、数週間〜数か月で減衰することが報告されています<a class="ref" href="#bib12">[12]</a>。</p>
+  <p>減衰を防ぐ鍵は、目新しさではなく<b>課題そのものの意味づけ</b>（自律性・有能感・関係性を満たす設計）に移行することです<a class="ref" href="#bib12">[12]</a>。「タブレットを使えば喜ぶ」は最初の数か月しか通用しない、と心得ましょう。</p>
+
+  <h3>即時フィードバックと自己効力感</h3>
+  <p>すぐに「できた！」が返ってくる経験は、特に学習が苦手な子の自己効力感を支えると期待されます。ただし、端末なら誰でも安心して取り組めるわけではありません。小学5年生890人の練習の記録を45週間追った研究では、<b>算数のテストに不安の強い子ほど、適応型の練習を早めに切り上げやすく</b>、それが成績の伸びにくさにつながっていました<a class="ref" href="#bib21">[21]</a>。不安の強い子には、「テストではなく練習」と伝える声かけや見守りが必要です。</p>
+
+  <h3>試行錯誤への心理的ハードル</h3>
+  <p>タブレットでは書き直し・やり直しが容易なため、<b>間違いを恐れず試行錯誤しやすい</b>という利点があります。一方、紙に書くことには「一度書いたら残る」重みがあり、それが丁寧さや責任感につながる側面もあります。</p>
+
+  <h3>過信と自己調整</h3>
+  <p>第4章で述べたとおり、画面学習では「わかったつもり」が生じやすいことが実験的に示されています<a class="ref" href="#bib4">[4]</a>。テスト前の総仕上げや重要事項の確認は、自己評価が正確になりやすい紙で行う意義があります。</p>
+</section>
+
+<!-- 第6章 -->
+<section class="chapter" id="ch6">
+  <div class="ch-head"><span class="ch-num">六</span><h2>健康・身体的側面</h2><span class="en">Health</span></div>
+
+  <h3>視力 — 近視の進行リスク</h3>
+  <p>近距離を長時間見続けることは近視進行の危険因子です。文部科学省のガイドブックでは、<b>端末は目から30cm以上離す・30分に1回は20秒以上遠くを見る</b>ことなどが推奨されています<a class="ref" href="#bib18">[18]</a>。また屋外活動（1日2時間程度）が近視進行の抑制に有効であることが知られています。</p>
+
+  <h3>睡眠 — ブルーライトの影響</h3>
+  <p>就寝前の画面利用は、睡眠ホルモン「メラトニン」の分泌を妨げ、寝つきを悪くする可能性があります。<b>就寝1時間前以降のデジタル学習は避ける</b>のが原則です<a class="ref" href="#bib18">[18]</a>。宿題をデジタルで出す場合は、この点を家庭に伝える必要があります。</p>
+
+  <h3>注意散漫 — マルチタスクの誘惑</h3>
+  <p>端末には常に「他のことができてしまう」誘惑があります。授業中の関係のないアプリ・サイトの利用（オフタスク行動）は学習を妨げます。使う場面と使わない場面を明確に区切る「メリハリ」のルールづくりが不可欠です<a class="ref" href="#bib18">[18]</a>。</p>
+
+  <div class="evidence">
+    <div class="ev-label">POINT</div>
+    健康面の配慮は「タブレットを使わない理由」ではなく「使い方のルール」の問題です。1日のスクリーンタイム全体を見渡し、<b>連続使用時間・姿勢・時間帯</b>をコントロールしたうえで、必要な場面で使いましょう。
+  </div>
+</section>
+
+<!-- 第7章 -->
+<section class="chapter" id="ch7">
+  <div class="ch-head"><span class="ch-num">七</span><h2>特別支援と個別最適化</h2><span class="en">Inclusion</span></div>
+
+  <h3>読み書きに困難のある子どもの学びを支える</h3>
+  <p>読み書きに困難のある子ども（ディスレクシア等）にとって、タブレットの<b>読み上げ機能・文字拡大・ふりがな・ハイライト・音声入力</b>は、学習への参加を支える大切な支援技術です。国の指針でも、読み書きに困難のある児童生徒にタブレット等の使用を認めることが合理的配慮の例に挙げられています<a class="ref" href="#bib20">[20]</a>。「全員が紙」の一斉授業では学びから排除されていた子どもが、端末によって同じ土俵に立てるようになります。</p>
+
+  <h3>「公平」とは全員同じ道具を使うことではない</h3>
+  <p>学級全体としては紙を選ぶ場面でも、必要な子どもには端末での参加を認める——このような<b>合理的配慮</b>としての使い分けが重要です。デジタル教科書も、文字の拡大・色の反転・読み上げなど、見え方や読み方に合わせた調整ができるように作られています<a class="ref" href="#bib13">[13]</a>。</p>
+
+  <h3>学力差への対応</h3>
+  <p>アダプティブ教材は、一人ひとりの習熟度に合わせて出題を変えられるため、<b>学力差の大きい学級での演習場面</b>で使いやすい道具です<a class="ref" href="#bib10">[10]</a>。全員が同じページを解く紙のドリルでは、早く終わる子と終わらない子の差が広がりがちです。</p>
+</section>
+
+<!-- 第8章 -->
+<section class="chapter" id="ch8">
+  <div class="ch-head"><span class="ch-num">八</span><h2>使い分けの原則 — まとめ</h2><span class="en">Principles</span></div>
+
+  <h3>研究知見から導かれる10の原則</h3>
+  <ol class="principles">
+    <li><b>長い説明文をじっくり読むなら紙。</b>読解成績・理解の深さで紙が一貫して優位<a class="ref" href="#bib1">[1]</a><a class="ref" href="#bib2">[2]</a></li>
+    <li><b>文字・漢字の習得は手書きで。</b>運動と知覚の統合が読み書きの脳基盤を育てる<a class="ref" href="#bib6">[6]</a><a class="ref" href="#bib7">[7]</a></li>
+    <li><b>覚えたいことは、手で書いて確かめる。</b>紙に書くと思い出しやすいという報告がある。ただし大学生などを対象にした研究が中心で、小学生での検証は少ない<a class="ref" href="#bib8">[8]</a><a class="ref" href="#bib9">[9]</a></li>
+    <li><b>反復練習・ドリルはタブレットで。</b>効くのは端末そのものではなく、即時フィードバックと個別に合わせた出題<a class="ref" href="#bib10">[10]</a><a class="ref" href="#bib11">[11]</a></li>
+    <li><b>調べる・共有する・発表するはタブレットで。</b>検索や一斉共有は端末ならではの機能。探究型の学習と組み合わせると効果が大きい<a class="ref" href="#bib19">[19]</a></li>
+    <li><b>作文は工程ごとに道具を選ぶ。</b>考えの整理は紙、推敲は端末。下書きは、入力に慣れるまでは手書きのほうが長く書ける<a class="ref" href="#bib22">[22]</a><a class="ref" href="#bib23">[23]</a></li>
+    <li><b>読み書きに困難のある子には、どの工程でも端末を選べるように。</b>合理的配慮としてのICTは最優先<a class="ref" href="#bib20">[20]</a></li>
+    <li><b>「わかったつもり」対策に、重要な確認は紙で。</b>画面学習は過信を生みやすい<a class="ref" href="#bib4">[4]</a></li>
+    <li><b>新奇性効果を意欲と混同しない。</b>端末の目新しさによる意欲向上は数週間で減衰する<a class="ref" href="#bib12">[12]</a></li>
+    <li><b>健康ルールとセットで使う。</b>30cm・30分・就寝1時間前・屋外活動を徹底<a class="ref" href="#bib18">[18]</a></li>
+  </ol>
+
+  <h3>場面別 早見表</h3>
+  <div class="matrix-wrap"><table class="matrix">
+    <thead><tr><th>学習場面</th><th>推奨</th><th>理由（根拠）</th></tr></thead>
+    <tbody>
+      <tr><td>説明文・長文の読解</td><td class="pick kami">紙</td><td>読解メタ分析で紙優位<a class="ref" href="#bib1">[1]</a><a class="ref" href="#bib2">[2]</a></td></tr>
+      <tr><td>物語の読書・読み聞かせ</td><td class="pick both">どちらでも</td><td>物語文は媒体差が小さい<a class="ref" href="#bib2">[2]</a><a class="ref" href="#bib3">[3]</a></td></tr>
+      <tr><td>漢字・かなの習得</td><td class="pick kami">紙（手書き）</td><td>手書きが文字学習の脳基盤を育てる<a class="ref" href="#bib6">[6]</a><a class="ref" href="#bib7">[7]</a></td></tr>
+      <tr><td>計算などの反復ドリル</td><td class="pick tab">タブレット</td><td>即時フィードバック・個別最適化<a class="ref" href="#bib10">[10]</a><a class="ref" href="#bib11">[11]</a></td></tr>
+      <tr><td>ノートに考えを整理</td><td class="pick kami">紙</td><td>図・矢印・囲みで自由に考えを広げられる</td></tr>
+      <tr><td>作文（低学年・入力練習前）</td><td class="pick kami">紙（手書き）</td><td>入力が未習熟だと書く量・質が低下<a class="ref" href="#bib22">[22]</a><a class="ref" href="#bib23">[23]</a></td></tr>
+      <tr><td>作文（高学年・推敲重視）</td><td class="pick both">併用</td><td>構想は紙、下書きは選択、推敲・共有は端末<a class="ref" href="#bib22">[22]</a><a class="ref" href="#bib23">[23]</a></td></tr>
+      <tr><td>調べ学習・情報収集</td><td class="pick tab">タブレット</td><td>検索は端末ならでは（図書資料とも併用）</td></tr>
+      <tr><td>観察・実験の記録</td><td class="pick tab">タブレット</td><td>写真・動画・音声で記録できる</td></tr>
+      <tr><td>考えの共有・比較</td><td class="pick tab">タブレット</td><td>全員の考えを即時に一覧できる</td></tr>
+      <tr><td>まとめ・振り返り・テスト前の確認</td><td class="pick kami">紙</td><td>「わかったつもり」を防ぎやすい<a class="ref" href="#bib4">[4]</a></td></tr>
+    </tbody>
+  </table></div>
+
+  <p style="margin-top:20px;">迷ったら、右上の「<b>診断テスト</b>」で授業の条件を選んでください。研究知見を参考に、工程ごとの使い分けを提案します。</p>
+</section>
+
+<!-- 参考文献 -->
+<section class="chapter" id="ch9">
+  <div class="ch-head"><span class="ch-num">文</span><h2>参考文献</h2><span class="en">References</span></div>
+  <ol class="bib">
+    <li id="bib1"><b>Delgado, P., Vargas, C., Ackerman, R., & Salmerón, L. (2018).</b> Don't throw away your printed books: A meta-analysis on the effects of reading media on reading comprehension. <i>Educational Research Review, 25</i>, 23–38.<span class="pop">対象：54件の研究（計17万人超）を統合。子どもから大人まで</span></li>
+    <li id="bib2"><b>Clinton, V. (2019).</b> Reading from paper compared to screens: A systematic review and meta-analysis. <i>Journal of Research in Reading, 42</i>(2), 288–325.<span class="pop">対象：33件の研究を統合。子どもから大人まで</span></li>
+    <li id="bib3"><b>Furenes, M. I., Kucirkova, N., & Bus, A. G. (2021).</b> A comparison of children's reading on paper versus screen: A meta-analysis. <i>Review of Educational Research, 91</i>(4), 483–517.<span class="pop">対象：1〜8歳の子ども（39件の研究を統合）</span></li>
+    <li id="bib4"><b>Ackerman, R., & Goldsmith, M. (2011).</b> Metacognitive regulation of text learning: On screen versus on paper. <i>Journal of Experimental Psychology: Applied, 17</i>(1), 18–32.<span class="pop">対象：大学生</span></li>
+    <li id="bib5"><b>Mueller, P. A., & Oppenheimer, D. M. (2014).</b> The pen is mightier than the keyboard: Advantages of longhand over laptop note taking. <i>Psychological Science, 25</i>(6), 1159–1168.<span class="pop">対象：大学生。追試は[15]</span></li>
+    <li id="bib6"><b>James, K. H., & Engelhardt, L. (2012).</b> The effects of handwriting experience on functional brain development in pre-literate children. <i>Trends in Neuroscience and Education, 1</i>(1), 32–42.<span class="pop">対象：読み書きを習う前の幼児</span></li>
+    <li id="bib7"><b>Van der Weel, F. R., & Van der Meer, A. L. H. (2024).</b> Handwriting but not typewriting leads to widespread brain connectivity: A high-density EEG study. <i>Frontiers in Psychology, 14</i>, 1219945.<span class="pop">対象：大学生（分析は36人）。手書きはタッチ画面にデジタルペンで書く条件</span></li>
+    <li id="bib8"><b>Umejima, K., Ibaraki, T., Yamazaki, T., & Sakai, K. L. (2021).</b> Paper notebooks vs. mobile devices: Brain activation differences during memory retrieval. <i>Frontiers in Behavioral Neuroscience, 15</i>, 634158.<span class="pop">対象：18〜29歳の大学生48人。予定を記録し、1時間後に思い出す課題。タブレット群はペン入力</span></li>
+    <li id="bib9"><b>コクヨ株式会社・立命館大学 岡本尚子研究室 (2024).</b> 紙のノートとタブレットへの筆記における記憶効果の比較（共同研究、2024年7月発表）. 暗記直後と2.5か月後の復習後のテスト得点が、紙のノートでタブレットより約2割高いことを報告. 企業の発表資料。<span class="pop">対象：大学生</span></li>
+    <li id="bib10"><b>Thai, K.-P., Bang, H. J., & Li, L. (2022).</b> Accelerating early math learning with research-based personalized learning games: A cluster randomized controlled trial. <i>Journal of Research on Educational Effectiveness, 15</i>(1), 28–51. ／ <b>Bang, H. J., Li, L., & Flynn, K. (2023).</b> Efficacy of an adaptive game-based math learning app to support personalized learning and improve early elementary school students' learning. <i>Early Childhood Education Journal, 51</i>(4), 717–732. 適応型の算数アプリを使った学級で算数の力が伸びたことを報告. 研究者はアプリの開発元に所属。<span class="pop">対象：アメリカの幼稚園年長クラス〜小学校低学年</span></li>
+    <li id="bib11"><b>Colliot, T., Krichen, O., Girard, N., Anquetil, É., & Jamet, É. (2024).</b> What makes tablet-based learning effective? A study of the role of real-time adaptive feedback. <i>British Journal of Educational Technology, 55</i>. タブレットに替えただけでは学習成果は変わらず、その場のフィードバックがある場合に学習・応用の成績が高いことを報告.<span class="pop">対象：中学1年生（図形の学習）</span></li>
+    <li id="bib12"><b>Tsay, C. H.-H., Kofinas, A. K., Trivedi, S. K., & Yang, Y. (2020).</b> Overcoming the novelty effect in online gamified learning systems. <i>Journal of Computer Assisted Learning, 36</i>(2), 128–146.<span class="pop">対象：大学生</span></li>
+    <li id="bib13"><b>文部科学省 (2021).</b> 「デジタル教科書の効果・影響等に関する実証研究」および「学習者用デジタル教科書の効果的な活用の在り方等に関するガイドライン」. 紙とデジタルの適切な使い分け・併用を提言.</li>
+    <li id="bib14"><b>Delgado, P., & Salmerón, L. (2021).</b> The inattentive on-screen reading: Reading medium affects attention and reading comprehension under time pressure. <i>Learning and Instruction, 71</i>, 101396.<span class="pop">対象：大学生140人</span></li>
+    <li id="bib15"><b>Urry, H. L., Crittle, C. S., Floerke, V. A., et al. (2021).</b> Don't ditch the laptop just yet: A direct replication of Mueller and Oppenheimer's (2014) Study 1 plus mini meta-analyses across similar studies. <i>Psychological Science, 32</i>(3), 326–339. [5]の追試。手書きでノートを取ると直後の学習成績が上がるという結果は確認されなかった。<span class="pop">対象：大学生</span></li>
+    <li id="bib16"><b>Mangen, A., Walgermo, B. R., & Brønnick, K. (2013).</b> Reading linear texts on paper versus computer screen: Effects on reading comprehension. <i>International Journal of Educational Research, 58</i>, 61–68.<span class="pop">対象：ノルウェーの10年生（日本の高校1年生にあたる）72人</span></li>
+    <li id="bib17"><b>Annisette, L. E., & Lafreniere, K. D. (2017).</b> Social media, texting, and personality: A test of the shallowing hypothesis. <i>Personality and Individual Differences, 115</i>, 154–158.<span class="pop">対象：カナダの大学生149人（質問紙調査。因果関係は不明）</span></li>
+    <li id="bib18"><b>文部科学省 (2022).</b> 「児童生徒の健康に留意してICTを活用するためのガイドブック」. 目と画面の距離30cm以上、30分に1回20秒以上目を休める、就寝1時間前の使用回避等を推奨.</li>
+    <li id="bib19"><b>Sung, Y.-T., Chang, K.-E., & Liu, T.-C. (2016).</b> The effects of integrating mobile devices with teaching and learning on students' learning performance: A meta-analysis and research synthesis. <i>Computers & Education, 94</i>, 252–275. 全体の効果量0.523、探究型の学習と組み合わせた場合は0.844.<span class="pop">対象：110件の研究（1993〜2013年）を統合。小学生から大人まで</span></li>
+    <li id="bib20"><b>近藤武夫（東京大学先端科学技術研究センター）.</b> 読み書きに困難のある児童生徒への支援技術（読み上げ・キーボード入力・音声入力）と合理的配慮に関する研究報告・講義資料（科学研究費 課題番号23730856の成果報告、文部科学省向け講義資料など）. 査読論文ではなく、実践研究と解説にもとづく.</li>
+    <li id="bib21"><b>Hilz, A., Hofman, A., Jansen, B. R. J., & Aldrup, K. (2025).</b> Tracing students' practice behavior in an adaptive math learning program: Does it mediate the math anxiety–performance link? <i>Learning and Instruction, 98</i>, 102113. 算数のテストに不安の強い子は、1回の練習を早めに切り上げやすく、それが成績の低さを説明していた.<span class="pop">対象：小学5年生890人（45週間の練習記録）</span></li>
+    <li id="bib22"><b>Berninger, V. W., Abbott, R. D., Augsburger, A., & Garcia, N. (2009).</b> Comparison of pen and keyboard transcription modes in children with and without learning disabilities. <i>Learning Disability Quarterly, 32</i>(3), 123–141. 小2・4・6年生でペンによる作文が量・速度で優位（4・6年生では完全な文も多い）。<span class="pop">対象：アメリカの小学2・4・6年生</span></li>
+    <li id="bib23"><b>文部科学省 (2015, 2023).</b> 情報活用能力調査. キーボード入力速度は小5平均で5.9字/分（2013年度調査）→15.8字/分（2021年度調査）。令和8年度に40字/分を目標とする指標（教育DXに係るKPI）が示されている.</li>
+    <li id="bib24"><b>OECD (2026).</b> <i>PISA 2025 Results (Volume I): Future-Ready Students</i>. OECD Publishing, Paris. 学校での学習目的のデジタル機器使用は「適度」が非使用・長時間使用より科学の成績が高いことと関連する「逆U字」関係を報告。学校での遊び目的の使用は1日1時間を超えると、長いほど成績が低い傾向。使わない生徒の成績が低いのは、学校の端末不足など別の要因を映している可能性があるとも述べている.<span class="pop">対象：15歳</span></li>
+  </ol>
+</section>
+
+</main>
+</div>
+</div>
+
+<!-- ================= 診断テスト ================= -->
+<div id="view-shindan">
+  <div class="sh-intro">
+    <h2>授業デザイン診断 — この授業、紙？ タブレット？</h2>
+    <p>これから行う授業・学習活動について8つの質問に答えると、研究知見を参考に、授業全体の傾向と「どの工程で何を使うか」を提案します。所要時間は約1分です。</p>
+  </div>
+  <div id="questions"></div>
+  <div class="sh-actions">
+    <button class="btn-main" onclick="diagnose()">診断する</button>
+    <button class="btn-sub" onclick="resetShindan()">リセット</button>
+    <span class="sh-warn" id="warn">未回答の質問があります（Q<span id="warn-list"></span>）</span>
+  </div>
+  <div id="result"></div>
+</div>
+
+</div>
+
+<footer>
+  紙とタブレットの使い分けガイド ｜ 研究論文にもとづく教材 ｜ 引用文献は教科書「参考文献」章を参照
+</footer>
+
+<script>
+/* ================= view switching ================= */
+function switchView(v){
+  document.getElementById('view-book').style.display = v==='book' ? '' : 'none';
+  document.getElementById('view-shindan').style.display = v==='shindan' ? 'block' : 'none';
+  document.getElementById('btn-book').classList.toggle('active', v==='book');
+  document.getElementById('btn-shindan').classList.toggle('active', v==='shindan');
+  document.getElementById('hero').style.display = v==='book' ? '' : 'none';
+  window.scrollTo({top:0,behavior:'instant'});
+}
+
+/* ================= diagnosis data =================
+   p: 紙ポイント, t: タブレットポイント
+   reason: {side:'kami'|'tab'|'both', text, refs:[n]}
+   caution: 注意喚起文
+*/
+const QUESTIONS = [
+ {
+  id:'grade', no:'Q1', title:'対象の学年は？', desc:'発達段階によって手書きの重要性や健康面の配慮が変わります。',
+  opts:[
+   {label:'低学年（1・2年）', p:2, t:0,
+    reasons:[{side:'kami', text:'文字習得期の低学年は、手で書く経験が読み書きの脳基盤を育てます。手書き中心を基本に。', refs:[6,7]}],
+    cautions:['低学年は特に目の発達途上です。端末を使う場合は連続時間を短く区切り、画面との距離30cm以上を徹底しましょう。']},
+   {label:'中学年（3・4年）', p:0, t:0, reasons:[]},
+   {label:'高学年（5・6年）', p:0, t:1,
+    reasons:[{side:'tab', text:'高学年は、キーボード入力や情報検索を学習の中に組み込みやすい時期です。入力の速さには個人差が大きいので、実態を確かめながら進めましょう。', refs:[23]}]},
+  ]
+ },
+ {
+  id:'subject', no:'Q2', title:'教科・領域は？', desc:'',
+  opts:[
+   {label:'国語', p:1, t:0, reasons:[]},
+   {label:'算数', p:0, t:0, reasons:[]},
+   {label:'理科', p:0, t:1, reasons:[{side:'tab', text:'理科は実験動画・観察記録（写真/動画）などデジタルの強みが活きやすい教科です。', refs:[13]}]},
+   {label:'社会', p:0, t:1, reasons:[{side:'tab', text:'社会科は資料の検索・比較・地図の拡大などデジタル資料活用と相性が良い教科です。', refs:[13]}]},
+   {label:'外国語・外国語活動', p:0, t:1, reasons:[{side:'tab', text:'ネイティブ音声・発音練習・録音など、音声を扱う外国語はデジタルの得意分野です。', refs:[13]}]},
+   {label:'生活・総合', p:0, t:1, reasons:[{side:'tab', text:'探究的な学習では調べる・記録する・まとめる場面で端末が有効です。', refs:[19]}]},
+   {label:'音楽・図工・家庭・体育', p:0, t:1, reasons:[{side:'tab', text:'実技系は動画による手本の提示・自分の動きの撮影と振り返りに端末が活きます。', refs:[]}]},
+   {label:'道徳・学級活動', p:0, t:0, reasons:[]},
+  ]
+ },
+ {
+  id:'activity', no:'Q3', title:'中心となる学習活動は？', desc:'この選択が診断に最も大きく影響します。',
+  opts:[
+   {label:'長い文章をじっくり読む', note:'説明文・教科書本文など', p:3, t:0, recipe:'reading',
+    reasons:[{side:'kami', text:'説明文の読解は紙が一貫して優位。17万人超のメタ分析で確認された頑健な知見です。スクロールは理解を妨げます。', refs:[1,2,14]}]},
+   {label:'物語を読む・読み聞かせ', p:0, t:0, recipe:'story',
+    reasons:[{side:'both', text:'物語文は媒体による理解差がほぼありません。ただし内容と無関係なゲーム的仕掛けのある電子絵本は避け、対話しながら読みましょう。', refs:[2,3]}]},
+   {label:'文字・漢字・ことばの練習', p:3, t:0, recipe:'kanji',
+    reasons:[{side:'kami', text:'文字を覚える時期は、手で書くことが有利とされます。書く運動が文字の認識を支えるためです（幼児や大学生を対象にした研究）。紙が基本ですが、タッチペンで画面に書くのも「手で書く」に入ります。', refs:[6,7]}]},
+   {label:'計算などの反復練習・ドリル', p:0, t:2, recipe:'drill',
+    reasons:[{side:'tab', text:'反復練習は、その場でフィードバックが返り、一人ひとりに合わせて出題が変わるタブレットの得意分野です。タブレットに替えただけでは成果は変わらず、フィードバックがあってこそ伸びたという実験があります。', refs:[10,11]}]},
+   {label:'考えをノートに整理する・まとめる', p:2, t:0, recipe:'note',
+    reasons:[{side:'kami', text:'紙への手書きは、図や矢印を使って自由に考えを整理できます。紙に書いた内容は思い出しやすいという報告もあります（大学生を対象にした実験など）。', refs:[8,9]}]},
+   {label:'作文・レポートを書く', p:1, t:1, recipe:'writing', typing:true,
+    reasons:[{side:'both', text:'作文は、工程ごとに道具を選ぶのが効果的です。考えを広げる構想は紙、書き直しを重ねる推敲は端末が向いています。下書きは、入力に慣れるまでは手書きのほうが長く書ける傾向があります（小2・4・6年生の研究）。入力に慣れた子はキーボードも選べます。', refs:[22,23]}]},
+   {label:'調べ学習・情報収集', p:0, t:3, recipe:'research', typing:true,
+    reasons:[{side:'tab', text:'検索して情報を集める活動は端末ならでは。情報活用能力の育成にも直結します。図書資料での調べ方と組み合わせるとさらに確かになります。', refs:[]}]},
+   {label:'観察・実験・活動の記録', p:0, t:2, recipe:'record',
+    reasons:[{side:'tab', text:'写真・動画・音声による記録は紙にない強み。時間の経過や動きを残せ、後の振り返りにも使えます。', refs:[13]}]},
+   {label:'発表・考えの共有', p:0, t:3, recipe:'share',
+    reasons:[{side:'tab', text:'全員の考えを瞬時に一覧・比較でき、友達の考えから学ぶ時間をつくりやすくなります。', refs:[]}]},
+   {label:'テスト・重要事項の確認', p:2, t:0, recipe:'test',
+    reasons:[{side:'kami', text:'画面学習は「わかったつもり」（理解度の過信）が生じやすいことが実験で示されています。大事な確認は紙で丁寧に。', refs:[4]}]},
+  ]
+ },
+ {
+  id:'goal', no:'Q4', title:'いちばんのねらいは？', desc:'',
+  opts:[
+   {label:'知識をしっかり覚えさせたい', p:2, t:0,
+    reasons:[{side:'kami', text:'覚えることがねらいなら、手で書いて確かめる活動を入れましょう。紙に書くと思い出しやすいという報告があります。ただし大学生などを対象にした研究が中心で、小学生での検証はまだ多くありません。', refs:[8,9]}]},
+   {label:'深く考えさせたい', p:1, t:0,
+    reasons:[{side:'kami', text:'深い理解には、じっくり読む・自分の言葉で書くプロセスが有効です。長い説明文は紙のほうが読解成績が高く、手書きは要約や言い換えを促しやすいとされます（手書きの効果は追試で結果が分かれています）。', refs:[1,5,15]}]},
+   {label:'技能を習熟させたい', p:0, t:1,
+    reasons:[{side:'tab', text:'習熟には練習量と即時フィードバックが鍵。デジタル教材で練習量を確保しましょう。算数に不安の強い子は早めに切り上げやすいという報告もあるので、様子を見て声をかけましょう。', refs:[10,11,21]}]},
+   {label:'学習意欲を高めたい', p:0, t:2,
+    reasons:[{side:'tab', text:'端末活用は学習意欲を高めます。ただし目新しさによる意欲は減衰するため、課題自体の面白さと結びつけましょう。', refs:[12]}],
+    cautions:['「タブレットだから楽しい」という新奇性効果は数週間〜数か月で薄れます。意欲の源泉を、できる喜び・課題の意味へ移行させる設計を。']},
+   {label:'表現・発信させたい', p:0, t:2,
+    reasons:[{side:'tab', text:'スライド・動画・音声など多様な表現手段と、共有・発信のしやすさはデジタルの強みです。', refs:[]}]},
+   {label:'情報活用能力を育てたい', p:0, t:3,
+    reasons:[{side:'tab', text:'検索・引用・整理・発信の力は、端末を実際に使う中で育ちます。それぞれの過程を丁寧に指導しましょう。', refs:[]}]},
+  ]
+ },
+ {
+  id:'class', no:'Q5', title:'学級の実態に近いものは？', desc:'複数選択できます。',
+  multi:true,
+  opts:[
+   {label:'学力差が大きい', p:0, t:2,
+    reasons:[{side:'tab', text:'学力差が大きい学級の演習では、一人ひとりに合わせて出題が変わるアダプティブ教材が使いやすい道具です。適応型の算数アプリを使った学級で算数の力が伸びたという報告があります（幼稚園年長〜小学校低学年）。', refs:[10]}]},
+   {label:'読み書きに困難のある子がいる', p:0, t:2,
+    reasons:[{side:'tab', text:'読み上げ・拡大・音声入力などの支援機能は、読み書きに困難のある子の学習参加を保障します。学級全体が紙の工程でも、必要な子には端末を認める合理的配慮を。下の授業レシピに、使える工程を示しました。', refs:[20]}]},
+   {label:'集中が続きにくい子が多い', p:1, t:0,
+    reasons:[],
+    cautions:['端末には他のアプリ・サイトへの誘惑（オフタスク行動）がつきものです。使う場面と使わない場面を明確に区切り、「今は閉じる」の合図を徹底しましょう。']},
+   {label:'視力低下・姿勢が気になる', p:1, t:0,
+    reasons:[],
+    cautions:['画面との距離30cm以上・30分に1回は20秒以上遠くを見る・正しい姿勢を徹底しましょう。屋外活動の時間確保も近視予防に有効です。']},
+   {label:'特になし', p:0, t:0, reasons:[]},
+  ]
+ },
+ {
+  id:'time', no:'Q6', title:'その時間帯までの端末使用は？', desc:'1日のスクリーンタイム全体で考えます。',
+  opts:[
+   {label:'この日はすでに端末をよく使っている', p:2, t:0,
+    reasons:[{side:'kami', text:'PISA 2025（15歳対象）では、学習目的の端末使用は「適度」な生徒の成績が最も高く、使わない生徒・長時間使う生徒はどちらも低めでした（逆U字）。目を休める意味でも、この時間は紙の工程を多めにするとバランスが取れます。', refs:[18,24]}]},
+   {label:'まだあまり使っていない', p:0, t:0, reasons:[]},
+   {label:'放課後・家庭学習の時間である', p:1, t:0,
+    reasons:[],
+    cautions:['就寝1時間前以降の画面利用は睡眠の質を下げる可能性があります。夜のデジタル宿題は避けるか、時間帯の指導とセットにしましょう。']},
+  ]
+ },
+ {
+  id:'feedback', no:'Q7', title:'フィードバックはどうしたい？', desc:'',
+  opts:[
+   {label:'その場ですぐ正誤を返したい', p:0, t:2,
+    reasons:[{side:'tab', text:'即時フィードバックはデジタルの強みのひとつ。その場でフィードバックが返るタブレット学習は、紙やフィードバックなしのタブレットより成績が高かったという実験があります（中学1年生）。', refs:[11]}]},
+   {label:'手書きで丁寧に添削・コメントしたい', p:1, t:0,
+    reasons:[{side:'kami', text:'赤ペンの手書き添削は一人ひとりへの温かいフィードバックとして機能します。紙の成果物と相性が良い方法です。', refs:[]}]},
+   {label:'子ども同士で見合い、相互評価させたい', p:0, t:2,
+    reasons:[{side:'tab', text:'作品や考えを全員に一斉共有して見合う活動は、端末の共有機能が最も効率的です。', refs:[]}]},
+   {label:'特に必要ない', p:0, t:0, reasons:[]},
+  ]
+ },
+ {
+  id:'output', no:'Q8', title:'成果物はどう扱う？', desc:'',
+  opts:[
+   {label:'何度も書き直し・編集させたい', p:0, t:2,
+    reasons:[{side:'tab', text:'書き直しが容易なデジタルは、間違いを恐れない試行錯誤と推敲の積み重ねを支えます。', refs:[]}]},
+   {label:'蓄積して学びの記録（ポートフォリオ）にしたい', p:0, t:2,
+    reasons:[{side:'tab', text:'デジタルなら成果物の保存・蓄積・見返しが容易。学期を通した成長の記録になります。', refs:[]}]},
+   {label:'教室に掲示したい・手元に残したい', p:1, t:0,
+    reasons:[{side:'kami', text:'掲示や持ち帰りなど「モノ」として残す成果物は紙ならでは。書いた達成感も形になります。', refs:[]}]},
+   {label:'特にこだわらない', p:0, t:0, reasons:[]},
+  ]
+ },
+];
+
+/* 授業レシピ（Q3の活動別） */
+const RECIPES = {
+ reading:{title:'長文読解の授業レシピ', steps:[
+  ['導入','tab','資料の背景となる写真・動画で興味を引き出す'],
+  ['展開①','kami','本文は紙でじっくり読む。線引き・書き込みをしながら'],
+  ['展開②','kami','考えをノートに書いて整理する'],
+  ['共有','tab','考えを端末で共有し、全員の意見を一覧・比較する'],
+  ['まとめ','kami','学んだことを自分の言葉でノートにまとめる'],
+ ]},
+ story:{title:'物語の授業レシピ', steps:[
+  ['読む','both','紙でも電子でもOK。電子の場合は内容と無関係なゲーム機能を避ける'],
+  ['対話','kami','感想や問いを話し合う。大人・友達との対話が理解を最も深める'],
+  ['表現','tab','好きな場面の音読を録音したり、感想を共有したりする'],
+ ]},
+ kanji:{title:'文字・漢字学習の授業レシピ', steps:[
+  ['導入','tab','筆順アニメーションで正しい書き方を確認する'],
+  ['練習','kami','紙に繰り返し手で書く。ここが学習の核'],
+  ['確認','tab','ドリルアプリでフラッシュ的に読みの確認（即時フィードバック）'],
+  ['定着','kami','ミニテストは紙で。書けてこそ習得'],
+ ]},
+ drill:{title:'反復練習の授業レシピ', steps:[
+  ['練習','tab','アダプティブ教材で自分のペースで練習。即時に正誤が返る'],
+  ['分析','tab','つまずきの傾向を教師が学習ログで把握する'],
+  ['個別指導','kami','つまずいている子には紙と鉛筆でじっくり寄り添う'],
+  ['確認','kami','単元末の確認テストは紙で実施'],
+ ]},
+ note:{title:'思考整理の授業レシピ', steps:[
+  ['整理','kami','ノートに図・矢印・囲みを使って自由に考えを書く'],
+  ['共有','tab','ノートを写真に撮って提出・共有する（紙とデジタルの合わせ技）'],
+  ['比較','tab','友達の整理の仕方を見て、自分のノートづくりに活かす'],
+ ]},
+ writing:{title:'作文・レポートの授業レシピ', steps:[
+  ['構想','kami','アイデア出し・構成メモは紙に手書きで'],
+  ['下書き','both','低学年は紙、高学年はデジタルも選択肢に'],
+  ['推敲','tab','デジタルで書き直し・入れ替えを重ねる'],
+  ['清書・共有','tab','完成作品を共有し、相互にコメントし合う'],
+ ]},
+ research:{title:'調べ学習の授業レシピ', steps:[
+  ['課題設定','kami','問いをノートに書いて明確にする'],
+  ['調査','tab','検索・資料閲覧。出典を記録する習慣を指導'],
+  ['整理','kami','集めた情報をノートやカードに手書きで整理（コピペ防止・理解の深化）'],
+  ['まとめ・発表','tab','スライド等にまとめ、発表・共有する'],
+ ]},
+ record:{title:'観察・記録の授業レシピ', steps:[
+  ['記録','tab','写真・動画・音声で対象を記録する'],
+  ['観察','kami','よく見て絵と言葉でスケッチする（観察眼を育てる）'],
+  ['考察','kami','気づき・疑問をノートに書く'],
+  ['共有','tab','記録と考察を共有し、友達の視点から学ぶ'],
+ ]},
+ share:{title:'発表・共有の授業レシピ', steps:[
+  ['準備','kami','伝えたいことの構成をメモに手書きで整理'],
+  ['作成','tab','スライド・資料をデジタルで作成'],
+  ['発表','tab','端末で提示しながら発表。全員の作品を一覧共有'],
+  ['振り返り','kami','もらったコメントと自分の学びをノートに記録'],
+ ]},
+ test:{title:'テスト・確認の授業レシピ', steps:[
+  ['直前練習','tab','ドリルアプリで弱点を集中的に練習（即時フィードバック）'],
+  ['最終確認','kami','重要事項は紙に書いて確認（「わかったつもり」を防ぎやすい）'],
+  ['テスト','kami','テストは紙で実施'],
+  ['振り返り','tab','間違えた問題を端末に記録し、後日再挑戦する'],
+ ]},
+};
+
+/* 回答に合わせて授業レシピを組み立てる
+   c: {grade:0低/1中/2高, support, heavy, home, redpen, peer, display} */
+function buildRecipe(key,c){
+  const base=RECIPES[key];
+  if(!base) return null;
+  let steps=base.steps.map(s=>s.slice());
+  const notes=[];
+  if(key==='writing'){
+    const sup=c.support;
+    const koso=['kami','紙に言葉や矢印で考えを整理する。'+(sup?'書くことに負担がある子は、音声メモで考えを残せる。':'')];
+    let shita,suiko,seisho;
+    if(c.grade===0) shita=['kami','紙に手書きで書く。入力の手間をなくし、内容を考えることに集中させる。'];
+    else if(c.grade===1) shita=['both','手書きを基本にする。入力に慣れている子はキーボードも選べるようにする。'];
+    else shita=['both', sup?'手書き・キーボード・音声入力から、自分の考えを文章にしやすい方法を選ぶ。':'手書きかキーボードか、自分の考えを文章にしやすい方法を選ぶ。'];
+    if(sup && c.grade<2) shita[1]+='書くことに負担がある子は、音声入力やキーボードを使えるようにする。';
+    if(c.grade===0) suiko=['kami','声に出して読み返し、直したい所に赤えんぴつで書き足す。'];
+    else if(c.grade===1) suiko=['both','入力した子は端末で書き直す。手書きの子は付箋や赤えんぴつで直す。'];
+    else suiko=['tab','端末で段落を入れ替えたり、書き直したりする。'];
+    if(sup) suiko[1]+= c.grade===0 ? '読むことに負担がある子は、先生や友達に読んでもらって確かめる。' : '必要に応じて読み上げを使い、言葉のつながりを確かめる。';
+    if(c.peer) seisho=['tab', (c.grade===0?'手書きの作品を写真に撮って共有し、':'作品を共有し、')+'友達のコメントを読んで、直したい箇所を選ぶ。'];
+    else if(c.display) seisho=['kami','紙に清書（または印刷）して、掲示する・持ち帰る。'];
+    else if(c.redpen) seisho=['kami','紙に清書（または印刷）して提出し、先生が手書きでコメントを返す。'];
+    else seisho=['both','見合うなら端末で共有し、掲示するなら紙に清書（または印刷）する。'];
+    steps=[['構想',...koso],['下書き',...shita],['推敲',...suiko],['清書・共有',...seisho]];
+    if(sup) notes.push('支援の手段は、必要な子が選べるようにしておくものです。全員の構想や下書きを端末に切りかえる必要はありません。');
+  }else if(c.support){
+    notes.push('読み書きに困難のある子には、紙の工程でも読み上げ・文字の拡大・音声入力を使えるようにしておきましょう。全員を端末に切りかえる必要はありません。');
+  }
+  if(c.heavy && steps.some(s=>s[1]==='tab')) notes.push('この日はすでに端末をよく使っています。「タブレット」の工程のうち1つを、紙や黒板に置きかえられないか考えてみましょう（例：共有は実物投影機や黒板で行う）。');
+  if(c.home && steps.some(s=>s[1]!=='kami')) notes.push('家庭学習では、端末を使う工程を就寝1時間前までに終えるよう伝えましょう。');
+  return {title:base.title, steps, notes};
+}
+
+/* ================= render questions ================= */
+const answers = {};
+function renderQuestions(){
+  const box = document.getElementById('questions');
+  box.innerHTML = QUESTIONS.map((q,qi)=>`
+    <div class="q-block" id="qb-${qi}">
+      <div class="q-head"><span class="q-no">${q.no}</span><span class="q-title">${q.title}</span></div>
+      ${q.desc?`<div class="q-desc">${q.desc}${q.multi?'':''}</div>`:''}
+      <div class="opts">
+        ${q.opts.map((o,oi)=>`
+          <button type="button" class="opt" id="opt-${qi}-${oi}" aria-pressed="false" onclick="pick(${qi},${oi})">${o.label}${o.note?`<span class="o-note">${o.note}</span>`:''}</button>
+        `).join('')}
+      </div>
+    </div>`).join('');
+}
+function pick(qi,oi){
+  const q = QUESTIONS[qi];
+  if(q.multi){
+    answers[qi] = answers[qi] || new Set();
+    if(answers[qi].has(oi)) answers[qi].delete(oi); else answers[qi].add(oi);
+    // 「特になし」と他の排他
+    const noneIdx = q.opts.findIndex(o=>o.label==='特になし');
+    if(oi===noneIdx && answers[qi].has(noneIdx)){ answers[qi] = new Set([noneIdx]); }
+    else if(answers[qi].has(noneIdx) && answers[qi].size>1){ answers[qi].delete(noneIdx); }
+    q.opts.forEach((_,i)=>{
+      const el=document.getElementById(`opt-${qi}-${i}`);
+      el.classList.toggle('sel', answers[qi].has(i));
+      el.setAttribute('aria-pressed', answers[qi].has(i));
+    });
+  }else{
+    answers[qi] = oi;
+    q.opts.forEach((_,i)=>{
+      const el=document.getElementById(`opt-${qi}-${i}`);
+      el.classList.toggle('sel', i===oi);
+      el.setAttribute('aria-pressed', i===oi);
+    });
+  }
+}
+function resetShindan(){
+  for(const k in answers) delete answers[k];
+  renderQuestions();
+  document.getElementById('result').style.display='none';
+  document.getElementById('warn').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ================= 判定（画面に依存しない計算部分） =================
+   ans: 各設問の選択番号の配列（複数選択のQ5だけ番号の配列）
+   level: 2 紙を中心に / 1 やや紙 / 0 ハイブリッド / -1 ややタブレット / -2 タブレットを中心に */
+function evaluate(ans){
+  let P=0,T=0; const reasons=[],cautions=[]; let recipeKey=null, needsTyping=false;
+  QUESTIONS.forEach((q,qi)=>{
+    [].concat(ans[qi]).forEach(oi=>{
+      const o=q.opts[oi];
+      P+=o.p; T+=o.t;
+      (o.reasons||[]).forEach(r=>reasons.push(r));
+      (o.cautions||[]).forEach(c=>cautions.push(c));
+      if(o.recipe) recipeKey=o.recipe;
+      if(o.typing) needsTyping=true;
+    });
+  });
+  // キーボード入力を伴う活動 × 低・中学年 → 入力スキルの注意喚起
+  if(needsTyping && ans[0]!==2){
+    cautions.push('この活動はキーボード入力を伴う可能性があります。小5でも平均入力速度は約16字/分（2021年度・文科省調査）。入力が未習熟な段階では手書きより「書ける量」が大きく減るため、タイピング練習とセットで進めるか、手書き＋写真提出などの代替も検討しましょう。');
+  }
+  const cls=[].concat(ans[4]);
+  const ctx={grade:ans[0], support:cls.includes(1), heavy:ans[5]===0, home:ans[5]===2,
+             redpen:ans[6]===1, peer:ans[6]===2, display:ans[7]===2};
+  const recipe=buildRecipe(recipeKey,ctx);
+  const nK=recipe.steps.filter(s=>s[1]==='kami').length;
+  const nT=recipe.steps.filter(s=>s[1]==='tab').length;
+  const diff=P-T;
+  let level = diff>=4 ? 2 : diff>=2 ? 1 : diff>=-1 ? 0 : diff>=-3 ? -1 : -2;
+  // 見出し（点数）と工程（授業レシピ）の向きが逆になるときは、工程に合わせてハイブリッドにする
+  let adjusted=null, softened=false;
+  if(level<0 && nK>nT){ level=0; adjusted='tab'; }
+  else if(level>0 && nT>nK){ level=0; adjusted='kami'; }
+  else if(Math.abs(level)===2 && nK===nT){ level=Math.sign(level); softened=true; }
+  return {P,T,level,adjusted,softened,reasons,cautions,recipe,nK,nT,recipeKey};
+}
+
+/* ================= diagnose ================= */
+function diagnose(){
+  // validate
+  const missing=[];
+  QUESTIONS.forEach((q,qi)=>{
+    if(q.multi){ if(!answers[qi] || answers[qi].size===0) missing.push(q.no.replace('Q','')); }
+    else if(answers[qi]===undefined) missing.push(q.no.replace('Q',''));
+  });
+  const warn=document.getElementById('warn');
+  if(missing.length){ warn.style.display='inline'; document.getElementById('warn-list').textContent=missing.join(', '); return; }
+  warn.style.display='none';
+
+  const ans=QUESTIONS.map((q,qi)=> q.multi ? [...answers[qi]] : answers[qi]);
+  const R=evaluate(ans);
+  const {P,T,reasons,cautions,recipe}=R;
+  const dispP=P+2, dispT=T+2;   // 帯の長さ：極端な表示を避けるため両方に2点を足した比で描く（数値は表示しない）
+  const pPct=Math.round(dispP/(dispP+dispT)*100), tPct=100-pPct;
+  const V={
+    '2':['<span class="kami">紙</span>を中心に','この授業のねらいと活動では、紙と手書きの強みが中心になります。端末は、役割のはっきりした工程にしぼって使いましょう。'],
+    '1':['どちらかといえば<span class="kami">紙</span>','紙を軸にしつつ、共有や確認などポイントを絞って端末を組み合わせると効果的です。'],
+    '0':['<span class="kami">紙</span>と<span class="tab">タブレット</span>のハイブリッド','この授業は、両方の強みを工程ごとに使い分けるのが向いています。'],
+    '-1':['どちらかといえば<span class="tab">タブレット</span>','端末の機能が学習目標の達成を後押しします。読む・書く・覚える場面では紙を差し込むとバランスが取れます。'],
+    '-2':['<span class="tab">タブレット</span>を中心に','この授業のねらいと活動では、端末ならではの機能（検索・記録・共有・書き直し・即時フィードバック）が中心になります。すべての工程を端末で行うという意味ではありません。'],
+  };
+  const verdict=V[R.level][0];
+  let vDesc=V[R.level][1];
+  if(R.adjusted==='tab') vDesc='ねらいやフィードバックの方法はタブレット向きですが、この学年・活動では、紙で行うほうがよい工程が多くなります。そのため、工程ごとに使い分ける「ハイブリッド」としました。';
+  if(R.adjusted==='kami') vDesc='学級の実態や時間帯からは紙が向いていますが、この活動には端末でこそできる工程が多く含まれます。そのため、工程ごとに使い分ける「ハイブリッド」としました。';
+  if(R.softened) vDesc+='この活動では、紙の工程と端末の工程がほぼ半々になります。';
+  vDesc+='これは回答から見た<b>授業全体の傾向</b>です。工程ごとにどちらを使うかは、下の「授業レシピ」で確かめてください。';
+
+  // dedupe reasons by text
+  const seen=new Set();
+  const uniqReasons=reasons.filter(r=>{ if(seen.has(r.text))return false; seen.add(r.text); return true; });
+  const kamiR=uniqReasons.filter(r=>r.side==='kami');
+  const tabR=uniqReasons.filter(r=>r.side==='tab');
+  const bothR=uniqReasons.filter(r=>r.side==='both');
+  const uniqCautions=[...new Set(cautions)];
+
+  const refLink=n=>`<a class="ref" href="#bib${n}" onclick="switchView('book');setTimeout(()=>document.getElementById('bib${n}').scrollIntoView({behavior:'instant'}),100);return false;">[${n}]</a>`;
+  const reasonCard=r=>`
+    <div class="reason r-${r.side}">
+      <span class="r-side">${r.side==='kami'?'紙の根拠':r.side==='tab'?'タブレットの根拠':'併用の根拠'}</span>
+      <div>${r.text}${(r.refs||[]).map(refLink).join('')}</div>
+    </div>`;
+
+  const recipeHtml=recipe?`
+    <div class="r-section">
+      <h4>授業レシピの提案 — ${recipe.title}</h4>
+      <div class="recipe">
+        <div class="recipe-lead">工程ごとに、その道具を選ぶ理由があります。上の「授業全体の傾向」と違う道具が出てくる工程があっても、矛盾ではありません。</div>
+        ${recipe.steps.map(s=>`
+          <div class="step"><b>${s[0]}</b><span class="tag-${s[1]}">${s[1]==='kami'?'紙':s[1]==='tab'?'タブレット':'どちらでも'}</span><span>${s[2]}</span></div>
+        `).join('')}
+        ${recipe.notes.length?`<ul class="recipe-notes">${recipe.notes.map(t=>`<li>${t}</li>`).join('')}</ul>`:''}
+      </div>
+    </div>`:'';
+
+  document.getElementById('result').innerHTML=`
+    <div class="verdict">
+      <div class="v-label">診断結果 — 授業全体の傾向</div>
+      <h3>${verdict}</h3>
+      <p>${vDesc}</p>
+      <div class="meter-title">回答から見た傾き</div>
+      <div class="meter" role="img" aria-label="回答から見た傾き。紙 ${P}点、タブレット ${T}点"><div class="m-p" style="width:0%"></div><div class="m-t" style="width:0%"></div></div>
+      <div class="meter-legend"><span>紙寄り</span><span>タブレット寄り</span></div>
+      <p class="meter-note">授業時間の配分（何分ずつ使うか）を表すものではありません。</p>
+      <details><summary>この傾きの出し方</summary>8つの回答それぞれに「紙」「タブレット」の点を付け、合計を比べています（今回は 紙 ${P}点・タブレット ${T}点）。点の重みは、研究知見を参考にこのガイドで決めた目安で、学校現場で検証された数値ではありません。帯の長さは、極端な表示を避けるため両方に2点を足した比で描いています。</details>
+    </div>
+    ${bothR.length?`<div class="r-section"><h4>組み合わせ方のポイント</h4><div class="reason-grid">${bothR.map(reasonCard).join('')}</div></div>`:''}
+    ${kamiR.length?`<div class="r-section"><h4>紙が活きる理由</h4><div class="reason-grid">${kamiR.map(reasonCard).join('')}</div></div>`:''}
+    ${tabR.length?`<div class="r-section"><h4>タブレットが活きる理由</h4><div class="reason-grid">${tabR.map(reasonCard).join('')}</div></div>`:''}
+    ${uniqCautions.length?`<div class="r-section"><h4>気をつけたいこと</h4>${uniqCautions.map(c=>`<div class="caution">${c}</div>`).join('')}</div>`:''}
+    ${recipeHtml}
+    <div class="sh-actions">
+      <button class="btn-sub" onclick="resetShindan()">もう一度診断する</button>
+      <button class="btn-sub" onclick="window.print()">この結果を印刷する</button>
+    </div>
+  `;
+  const res=document.getElementById('result');
+  res.style.display='block';
+  res.scrollIntoView({behavior:'smooth'});
+  setTimeout(()=>{
+    res.querySelector('.m-p').style.width=pPct+'%';
+    res.querySelector('.m-t').style.width=tPct+'%';
+  },100);
+}
+
+/* toc highlight */
+const tocLinks=[...document.querySelectorAll('.toc a')];
+const chapters=[...document.querySelectorAll('section.chapter')];
+window.addEventListener('scroll',()=>{
+  if(document.getElementById('view-book').style.display==='none')return;
+  let cur=chapters[0];
+  for(const c of chapters){ if(c.getBoundingClientRect().top<140) cur=c; }
+  tocLinks.forEach(a=>a.classList.toggle('now', a.getAttribute('href')==='#'+cur.id));
+},{passive:true});
+
+renderQuestions();
+</script>
+</body>
+</html>

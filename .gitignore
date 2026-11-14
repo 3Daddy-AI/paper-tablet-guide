@@ -1,2 +1,8 @@
 .claude/
 .DS_Store
+
+# 継目（ui-tsugime）の作業ファイル：レポートと見立てだけ残す
+# （計測JSONにはPC内のフォルダの場所が入るため記録しない）
+tsugime-out/*
+!tsugime-out/report.html
+!tsugime-out/commentary.json
